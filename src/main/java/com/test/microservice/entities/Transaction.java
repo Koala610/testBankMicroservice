@@ -16,6 +16,9 @@ public class Transaction {
     @Column(name = "datetime")
     @Temporal(TemporalType.TIMESTAMP)
     private Date datetime;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "expense_category_id")
+    private ExpenseCategory expenseCategory;
     private boolean limitExceeded;
 
 

@@ -13,6 +13,10 @@ public class Limit {
     @Temporal(TemporalType.TIMESTAMP)
     private Date limitDatetime;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "expense_category_id")
+    private ExpenseCategory expenseCategory;
+
     public Long getAccountId() {
         return accountId;
     }
