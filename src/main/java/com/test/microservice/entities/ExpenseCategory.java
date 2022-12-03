@@ -1,24 +1,27 @@
 package com.test.microservice.entities;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
-public class ExpenseCategory {@Id
+@Entity
+public class ExpenseCategory {
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Long id;
     private String name;
 
-    public ExpenseCategory(int id, String name) {
+    public ExpenseCategory(Long id, String name) {
         setId(id);
         setName(name);
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
