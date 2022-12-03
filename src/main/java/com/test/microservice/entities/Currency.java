@@ -1,4 +1,4 @@
-package com.test.microservice.models;
+package com.test.microservice.entities;
 
 import jakarta.persistence.*;
 
@@ -7,7 +7,6 @@ public class Currency {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    @Column
     private String name;
 
     public Currency(int id, String name) {
