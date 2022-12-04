@@ -1,4 +1,4 @@
-package com.test.microservice.entities;
+package com.test.microservice.entity;
 
 import jakarta.persistence.*;
 

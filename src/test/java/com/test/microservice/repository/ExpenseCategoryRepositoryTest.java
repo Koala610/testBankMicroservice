@@ -1,9 +1,6 @@
 package com.test.microservice.repository;
 
-import com.test.microservice.entities.ExpenseCategory;
-import com.test.microservice.repositories.ExpenseCategoryRepository;
-import jdk.jfr.Category;
-import org.assertj.core.api.Condition;
+import com.test.microservice.entity.ExpenseCategory;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
