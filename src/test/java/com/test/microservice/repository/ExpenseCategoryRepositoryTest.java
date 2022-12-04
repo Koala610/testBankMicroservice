@@ -15,12 +15,18 @@ public class ExpenseCategoryRepositoryTest {
     @Autowired
     private ExpenseCategoryRepository repository;
 
+    public ExpenseCategory createTestExpenseCategory(String name) {
+        ExpenseCategory category = new ExpenseCategory(name);
+        category = repository.save(category);
+        return category;
+
+    }
+
     @Test
     public void testCreation() {
 
         long prev_size = repository.count();
-        ExpenseCategory category = new ExpenseCategory("CreateTest");
-        category = repository.save(category);
+        ExpenseCategory category = createTestExpenseCategory("CreateTest");
         List<ExpenseCategory> categoryList = (List<ExpenseCategory>) repository.findAll();
         assertThat(categoryList).hasSize((int) (prev_size+1));
         repository.delete(category);
@@ -29,8 +35,7 @@ public class ExpenseCategoryRepositoryTest {
     @Test
     public void testDeletion() {
         long prev_size = repository.count();
-        ExpenseCategory category = new ExpenseCategory("DeleteTest");
-        category = repository.save(category);
+        ExpenseCategory category = createTestExpenseCategory("DeleteTest");
         repository.delete(category);
         List<ExpenseCategory> categoryList = (List<ExpenseCategory>) repository.findAll();
         assertThat(categoryList).hasSize((int) prev_size);
@@ -38,8 +43,7 @@ public class ExpenseCategoryRepositoryTest {
     }
     @Test
     public void testUpdate() {
-        ExpenseCategory category = new ExpenseCategory("UpdateTest");
-        category = repository.save(category);
+        ExpenseCategory category = createTestExpenseCategory("UpdateTest");
         category.setName("UpdateTestNew");
         ExpenseCategory updatedCategory = repository.save(category);
         List<ExpenseCategory> categoryList = repository.findByIdAndName(updatedCategory.getId(), "UpdateTestNew");
