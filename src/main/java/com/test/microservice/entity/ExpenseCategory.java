@@ -1,8 +1,6 @@
-package com.test.microservice.entities;
+package com.test.microservice.entity;
 
 import jakarta.persistence.*;
-
-import java.util.List;
 
 @Entity
 @Table(name = "expense_categories")

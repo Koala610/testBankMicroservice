@@ -1,6 +1,6 @@
-package com.test.microservice.repositories;
+package com.test.microservice.repository;
 
-import com.test.microservice.entities.ExpenseCategory;
+import com.test.microservice.entity.ExpenseCategory;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
