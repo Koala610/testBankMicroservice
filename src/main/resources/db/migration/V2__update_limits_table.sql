@@ -1,0 +1,1 @@
+ALTER TABLE limits CHANGE id account_id int(10) NOT NULL;
