@@ -1,14 +1,15 @@
 package com.test.microservice.entity;
 
 import jakarta.persistence.*;
+import org.springframework.data.annotation.LastModifiedBy;
 
 import java.util.Date;
 
 @Entity
 @Table(name = "limits")
-public class Limit {
+public class Limit extends AbstractEntity {
     @Id
-    private Long accountId;
+    private Long id;
     private double limitSum;
     @Column(name = "limit_datetime")
     @Temporal(TemporalType.TIMESTAMP)
@@ -20,44 +21,44 @@ public class Limit {
 
     public Limit() {
     }
-    public Limit(Long accountId) {
-        setAccountId(accountId);
+    public Limit(Long Id) {
+        setId(Id);
     }
-    public Limit(Long accountId, double limitSum) {
-        this(accountId);
+    public Limit(Long Id, double limitSum) {
+        this(Id);
         setLimitSum(limitSum);
     }
 
-    public Limit(Long accountId, ExpenseCategory expenseCategory) {
-        this(accountId);
+    public Limit(Long Id, ExpenseCategory expenseCategory) {
+        this(Id);
         setExpenseCategory(expenseCategory);
     }
-    public Limit(Long accountId, double limitSum, ExpenseCategory expenseCategory) {
-        this(accountId, limitSum);
+    public Limit(Long Id, double limitSum, ExpenseCategory expenseCategory) {
+        this(Id, limitSum);
         setExpenseCategory(expenseCategory);
     }
 
-    public Limit(Long accountId, ExpenseCategory expenseCategory, double limitSum) {
-        this(accountId, expenseCategory);
+    public Limit(Long Id, ExpenseCategory expenseCategory, double limitSum) {
+        this(Id, expenseCategory);
         setLimitSum(limitSum);
     }
 
-    public Limit(Long accountId, double limitSum, ExpenseCategory expenseCategory, Date limitDatetime) {
-        this(accountId, limitSum, expenseCategory);
+    public Limit(Long Id, double limitSum, ExpenseCategory expenseCategory, Date limitDatetime) {
+        this(Id, limitSum, expenseCategory);
         setLimitDatetime(limitDatetime);
     }
 
-    public Limit(Long accountId, ExpenseCategory expenseCategory, double limitSum, Date limitDatetime) {
-        this(accountId, expenseCategory, limitSum);
+    public Limit(Long Id, ExpenseCategory expenseCategory, double limitSum, Date limitDatetime) {
+        this(Id, expenseCategory, limitSum);
         setLimitDatetime(limitDatetime);
     }
 
-    public Long getAccountId() {
-        return accountId;
+    public Long getId() {
+        return id;
     }
 
-    public void setAccountId(Long accountId) {
-        this.accountId = accountId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public double getLimitSum() {
