@@ -6,7 +6,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "transactions")
-public class Transaction {
+public class Transaction extends AbstractEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -4,7 +4,8 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "expense_categories")
-public class ExpenseCategory {
+public class ExpenseCategory extends AbstractEntity{
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -23,12 +24,10 @@ public class ExpenseCategory {
         setName(name);
     }
 
+    @Override
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -54,5 +53,9 @@ public class ExpenseCategory {
         if(o == this) return true;
         ExpenseCategory e = (ExpenseCategory) o;
         return this.getId() == e.getId() && this.getName() == e.getName();
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

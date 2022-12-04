@@ -1,5 +1,6 @@
 package com.test.microservice.repository;
 
+import com.test.microservice.entity.AbstractEntity;
 import com.test.microservice.entity.ExpenseCategory;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,44 +12,32 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 @SpringBootTest
-public class ExpenseCategoryRepositoryTest {
+public class ExpenseCategoryRepositoryTest extends CrudRepositoryTest{
     @Autowired
-    private ExpenseCategoryRepository repository;
-
-    public ExpenseCategory createTestExpenseCategory(String name) {
-        ExpenseCategory category = new ExpenseCategory(name);
-        category = repository.save(category);
-        return category;
-
+    public ExpenseCategoryRepositoryTest(ExpenseCategoryRepository repository) {
+        super(repository);
     }
 
-    @Test
-    public void testCreation() {
-
-        long prev_size = repository.count();
-        ExpenseCategory category = createTestExpenseCategory("CreateTest");
-        List<ExpenseCategory> categoryList = (List<ExpenseCategory>) repository.findAll();
-        assertThat(categoryList).hasSize((int) (prev_size+1));
-        repository.delete(category);
+    @Override
+    public AbstractEntity createTestEntity() {
+        ExpenseCategory category = new ExpenseCategory("CreateTest");
+        return (AbstractEntity) mainRepository.save(category);
     }
 
-    @Test
-    public void testDeletion() {
-        long prev_size = repository.count();
-        ExpenseCategory category = createTestExpenseCategory("DeleteTest");
-        repository.delete(category);
-        List<ExpenseCategory> categoryList = (List<ExpenseCategory>) repository.findAll();
-        assertThat(categoryList).hasSize((int) prev_size);
 
+    @Override
+    public void deleteTestEntity(AbstractEntity entity) {
+        mainRepository.delete((ExpenseCategory) entity);
     }
-    @Test
-    public void testUpdate() {
-        ExpenseCategory category = createTestExpenseCategory("UpdateTest");
+
+    @Override
+    public AbstractEntity updateTestEntity(AbstractEntity entity) {
+        ExpenseCategory category = (ExpenseCategory) entity;
         category.setName("UpdateTestNew");
-        ExpenseCategory updatedCategory = repository.save(category);
-        List<ExpenseCategory> categoryList = repository.findByIdAndName(updatedCategory.getId(), "UpdateTestNew");
-        assertThat(categoryList).isNotEmpty();
-        repository.delete(updatedCategory);
-
+        ExpenseCategory updatedCategory = (ExpenseCategory) mainRepository.save(category);
+        return updatedCategory;
     }
+
+    //TODO: unify crud operations testing. Idea: create abstract entity class and abstract CrudRepositoryTest class
+
 }

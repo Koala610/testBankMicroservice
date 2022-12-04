@@ -1,5 +1,6 @@
 package com.test.microservice.repository;
 
+import com.test.microservice.entity.AbstractEntity;
 import com.test.microservice.entity.ExpenseCategory;
 import com.test.microservice.entity.Limit;
 import org.junit.jupiter.api.Test;
@@ -8,47 +9,31 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
+
 import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
-public class LimitRepositoryTest {
+public class LimitRepositoryTest extends  CrudRepositoryTest{
     @Autowired
-    private LimitRepository limitRepository;
-    @Autowired
-    private ExpenseCategoryRepository expenseCategoryRepository;
-    public Limit createTestLimit() {
+    public LimitRepositoryTest(LimitRepository mainRepository, ExpenseCategoryRepository additionalRepository) {
+        super(mainRepository, additionalRepository);
+    }
+    public AbstractEntity createTestEntity() {
         ExpenseCategory expenseCategory = new ExpenseCategory("LimitTest");
-        Limit limit = new Limit(123L, 12.34, expenseCategory);
-        return limitRepository.save(limit);
+        Limit limit = new Limit((long) new Random().nextInt(9999), 12.34, expenseCategory);
+        return (AbstractEntity) mainRepository.save(limit);
     }
 
-    public void deleteTestLimit(Limit limit) {
-        limitRepository.delete(limit);
-        expenseCategoryRepository.delete(limit.getExpenseCategory());
-    }
-    @Test
-    public void testCreate() {
-        Limit limit = createTestLimit();
-        Optional<Limit> foundLimit = limitRepository.findById(Long.valueOf(123));
-        assertThat(foundLimit).isNotNull();
-        deleteTestLimit(limit);
+    public void deleteTestEntity(AbstractEntity entity) {
+        Limit limit = (Limit) entity;
+        mainRepository.delete(limit);
+        additionalRepository.delete(limit.getExpenseCategory());
     }
 
-    @Test
-    public void testDelete() {
-        long init_len = limitRepository.count();
-        Limit limit = createTestLimit();
-        deleteTestLimit(limit);
-        List<Limit> limits = (List<Limit>) limitRepository.findAll();
-        assertThat(limits).hasSize((int) (init_len));
-    }
-
-    @Test
-    public void testUpdate() {
-        Limit limit = createTestLimit();
+    public AbstractEntity updateTestEntity(AbstractEntity entity) {
+        Limit limit = (Limit) entity ;
         limit.setLimitSum(55.55);
-        limit = limitRepository.save(limit);
-        Optional<Limit> checkLimit = limitRepository.findById(limit.getAccountId());
-        assertThat(checkLimit).isNotNull();
-        deleteTestLimit(limit);
+        return (AbstractEntity) mainRepository.save(limit);
     }
+
 }
