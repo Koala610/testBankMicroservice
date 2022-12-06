@@ -6,6 +6,9 @@ import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.Table;
 
 import java.math.BigDecimal;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Date;
 
 @Table(value = "exchange_rates")
@@ -14,38 +17,45 @@ public class ExchangeRate extends AbstractEntity{
     @Column(value = "id")
     private Long id;
     @Column(value = "first_currency")
-    private BigDecimal firstCurrency;
+    private String firstCurrency;
     @Column(value = "second_currency")
-    private BigDecimal secondCurrency;
-    @Column(value = "update_date")
-    private Date updateDate;
+    private String secondCurrency;
+
+    @Column(value = "value")
+    private BigDecimal value;
+    @Column(value = "timestamp")
+    private Date timestamp;
     public ExchangeRate() {
 
     }
 
 
-    public BigDecimal getFirstCurrency() {
+    public String getFirstCurrency() {
         return firstCurrency;
     }
 
-    public void setFirstCurrency(BigDecimal firstCurrency) {
+    public void setFirstCurrency(String firstCurrency) {
         this.firstCurrency = firstCurrency;
     }
 
-    public BigDecimal getSecondCurrency() {
+    public String getSecondCurrency() {
         return secondCurrency;
     }
 
-    public void setSecondCurrency(BigDecimal secondCurrency) {
+    public void setSecondCurrency(String secondCurrency) {
         this.secondCurrency = secondCurrency;
     }
 
-    public Date getUpdateDate() {
-        return updateDate;
+    public Date getTimestamp() {
+        return timestamp;
     }
 
-    public void setUpdateDate(Date updateDate) {
-        this.updateDate = updateDate;
+    public void setTimestamp(Date timestamp) {
+        this.timestamp = timestamp;
+    }
+    public Date convertDateByTimeZone(Instant datetime, String timezone) {
+        ZoneId zoneId = ZoneId.of(timezone);
+        return Date.from(ZonedDateTime.ofInstant(datetime, zoneId).toInstant());
     }
 
     public Long getId() {
@@ -54,5 +64,13 @@ public class ExchangeRate extends AbstractEntity{
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public BigDecimal getValue() {
+        return value;
+    }
+
+    public void setValue(BigDecimal value) {
+        this.value = value;
     }
 }
