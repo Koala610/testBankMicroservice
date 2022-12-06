@@ -1,7 +1,6 @@
 package com.test.microservice.entity;
 
 import jakarta.persistence.*;
-import org.springframework.data.annotation.LastModifiedBy;
 
 import java.util.Date;
 
@@ -53,6 +52,7 @@ public class Limit extends AbstractEntity {
         setLimitDatetime(limitDatetime);
     }
 
+    @Override
     public Long getId() {
         return id;
     }
