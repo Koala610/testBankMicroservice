@@ -1,0 +1,1 @@
+ALTER TABLE transactions ADD COLUMN currency_shortname varchar(3) after sum;

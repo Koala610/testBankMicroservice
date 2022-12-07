@@ -8,33 +8,35 @@ import java.util.Date;
 @Table(name = "limits")
 public class Limit extends AbstractEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private Long accountId;
     private double limitSum;
+
+    @Column(name = "remaining_sum")
+    private double remainingSum;
     @Column(name = "limit_datetime")
     @Temporal(TemporalType.TIMESTAMP)
     private Date limitDatetime;
 
     @Enumerated(EnumType.STRING)
     private ExpenseCategory expenseCategory;
+    @Column(name = "limit_currency_shortname")
+    private String limitCurrencyShortname;
 
     public Limit() {
     }
-    public Limit(Long Id) {
-        setId(Id);
-    }
-    public Limit(Long Id, Long accountId) {
-        this(Id);
+    public Limit( Long accountId) {
         setAccountId(accountId);
     }
 
-    public Limit(Long Id, Long accountId, ExpenseCategory expenseCategory) {
-        this(Id, accountId);
+    public Limit(Long accountId, ExpenseCategory expenseCategory) {
+        this(accountId);
         setExpenseCategory(expenseCategory);
     }
-    public Limit(Long Id, Long accountId, ExpenseCategory expenseCategory, double limitSum) {
-        this(Id, accountId, expenseCategory);
+    public Limit(Long accountId, ExpenseCategory expenseCategory, double limitSum) {
+        this(accountId, expenseCategory);
         setLimitSum(limitSum);
     }
     public Long getId() {
@@ -75,5 +77,21 @@ public class Limit extends AbstractEntity {
 
     public void setAccountId(Long accountId) {
         this.accountId = accountId;
+    }
+
+    public double getRemainingSum() {
+        return remainingSum;
+    }
+
+    public void setRemainingSum(double remainingSum) {
+        this.remainingSum = remainingSum;
+    }
+
+    public String getLimitCurrencyShortname() {
+        return limitCurrencyShortname;
+    }
+
+    public void setLimitCurrencyShortname(String limitCurrencyShortname) {
+        this.limitCurrencyShortname = limitCurrencyShortname;
     }
 }
