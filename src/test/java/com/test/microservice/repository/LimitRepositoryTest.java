@@ -15,11 +15,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 public class LimitRepositoryTest extends  CrudRepositoryTest{
     @Autowired
-    public LimitRepositoryTest(LimitRepository mainRepository, ExpenseCategoryRepository additionalRepository) {
-        super(mainRepository, additionalRepository);
+    public LimitRepositoryTest(LimitRepository mainRepository) {
+        super(mainRepository);
     }
     public AbstractEntity createTestEntity() {
-        ExpenseCategory expenseCategory = new ExpenseCategory("LimitTest");
+        ExpenseCategory expenseCategory = ExpenseCategory.product;
         Limit limit = new Limit((long) new Random().nextInt(9999), 0111111L, expenseCategory);
         return (AbstractEntity) mainRepository.save(limit);
     }

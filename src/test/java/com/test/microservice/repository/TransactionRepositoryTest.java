@@ -11,18 +11,17 @@ import java.util.Date;
 @SpringBootTest
 public class TransactionRepositoryTest extends CrudRepositoryTest{
     @Autowired
-    public TransactionRepositoryTest(TransactionRepository mainRepository, ExpenseCategoryRepository additionalRepository) {
-        super(mainRepository, additionalRepository);
+    public TransactionRepositoryTest(TransactionRepository mainRepository) {
+        super(mainRepository);
     }
 
     public AbstractEntity createTestEntity() {
-        Transaction transaction = new Transaction(1234567890L, 9876543210L, new ExpenseCategory("TransactionTest"), new Date(System.currentTimeMillis()));
+        Transaction transaction = new Transaction(1234567890L, 9876543210L, ExpenseCategory.product, new Date(System.currentTimeMillis()));
         return (AbstractEntity) mainRepository.save(transaction);
     }
     public void deleteTestEntity(AbstractEntity entity) {
         Transaction transaction =(Transaction) entity;
         mainRepository.delete(transaction);
-        additionalRepository.delete(transaction.getExpenseCategory());
     }
     public AbstractEntity updateTestEntity(AbstractEntity entity) {
         Transaction transaction = (Transaction) entity;
