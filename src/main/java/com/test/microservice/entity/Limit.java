@@ -16,8 +16,7 @@ public class Limit extends AbstractEntity {
     @Temporal(TemporalType.TIMESTAMP)
     private Date limitDatetime;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "expense_category_id")
+    @Enumerated(EnumType.STRING)
     private ExpenseCategory expenseCategory;
 
     public Limit() {

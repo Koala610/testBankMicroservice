@@ -20,8 +20,8 @@ public class Transaction extends AbstractEntity {
     @Column(name = "datetime")
     @DateTimeFormat(pattern = "dd/MM/yy hh:mm:ss")
     private Date datetime;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "expense_category_id")
+    @Column(name = "expense_category")
+    @Enumerated(EnumType.STRING)
     private ExpenseCategory expenseCategory;
     private boolean limitExceeded;
 
