@@ -1,11 +1,13 @@
 package com.test.microservice.entity;
 
+import io.swagger.annotations.ApiModel;
 import jakarta.persistence.*;
 
 import java.util.Date;
 
 @Entity
 @Table(name = "transactions")
+@ApiModel("Transaction model")
 public class Transaction extends AbstractEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
