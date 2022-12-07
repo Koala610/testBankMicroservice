@@ -8,6 +8,7 @@ import org.springframework.context.annotation.PropertySource;
 @Configuration
 @ComponentScan("com.test.microservice")
 @PropertySource("classpath:exchangeRateService.properties")
+@PropertySource("classpath:cassandra.properties")
 public class SpringConfiguration {
 
 }
