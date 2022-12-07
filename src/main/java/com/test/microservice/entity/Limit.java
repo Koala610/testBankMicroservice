@@ -9,6 +9,8 @@ import java.util.Date;
 public class Limit extends AbstractEntity {
     @Id
     private Long id;
+
+    private Long accountId;
     private double limitSum;
     @Column(name = "limit_datetime")
     @Temporal(TemporalType.TIMESTAMP)
@@ -23,36 +25,19 @@ public class Limit extends AbstractEntity {
     public Limit(Long Id) {
         setId(Id);
     }
-    public Limit(Long Id, double limitSum) {
+    public Limit(Long Id, Long accountId) {
         this(Id);
-        setLimitSum(limitSum);
+        setAccountId(accountId);
     }
 
-    public Limit(Long Id, ExpenseCategory expenseCategory) {
-        this(Id);
+    public Limit(Long Id, Long accountId, ExpenseCategory expenseCategory) {
+        this(Id, accountId);
         setExpenseCategory(expenseCategory);
     }
-    public Limit(Long Id, double limitSum, ExpenseCategory expenseCategory) {
-        this(Id, limitSum);
-        setExpenseCategory(expenseCategory);
-    }
-
-    public Limit(Long Id, ExpenseCategory expenseCategory, double limitSum) {
-        this(Id, expenseCategory);
+    public Limit(Long Id, Long accountId, ExpenseCategory expenseCategory, double limitSum) {
+        this(Id, accountId, expenseCategory);
         setLimitSum(limitSum);
     }
-
-    public Limit(Long Id, double limitSum, ExpenseCategory expenseCategory, Date limitDatetime) {
-        this(Id, limitSum, expenseCategory);
-        setLimitDatetime(limitDatetime);
-    }
-
-    public Limit(Long Id, ExpenseCategory expenseCategory, double limitSum, Date limitDatetime) {
-        this(Id, expenseCategory, limitSum);
-        setLimitDatetime(limitDatetime);
-    }
-
-    @Override
     public Long getId() {
         return id;
     }
@@ -83,5 +68,13 @@ public class Limit extends AbstractEntity {
 
     public void setLimitDatetime(Date limitDatetime) {
         this.limitDatetime = limitDatetime;
+    }
+
+    public Long getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(Long accountId) {
+        this.accountId = accountId;
     }
 }

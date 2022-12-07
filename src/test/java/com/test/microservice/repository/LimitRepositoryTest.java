@@ -20,7 +20,7 @@ public class LimitRepositoryTest extends  CrudRepositoryTest{
     }
     public AbstractEntity createTestEntity() {
         ExpenseCategory expenseCategory = new ExpenseCategory("LimitTest");
-        Limit limit = new Limit((long) new Random().nextInt(9999), 12.34, expenseCategory);
+        Limit limit = new Limit((long) new Random().nextInt(9999), 0111111L, expenseCategory);
         return (AbstractEntity) mainRepository.save(limit);
     }
 
