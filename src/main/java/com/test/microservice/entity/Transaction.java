@@ -26,6 +26,9 @@ public class Transaction extends AbstractEntity {
     @Column(name = "currency_shortname")
     private String currencyShortName;
     private boolean limitExceeded;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "limit_id")
+    private Limit limit;
 
     public Transaction() {
         setCurrencyShortName("KZT");
@@ -111,5 +114,13 @@ public class Transaction extends AbstractEntity {
 
     public void setCurrencyShortName(String currencyShortName) {
         this.currencyShortName = currencyShortName;
+    }
+
+    public Limit getLimit() {
+        return limit;
+    }
+
+    public void setLimit(Limit limit) {
+        this.limit = limit;
     }
 }

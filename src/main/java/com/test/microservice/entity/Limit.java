@@ -3,6 +3,7 @@ package com.test.microservice.entity;
 import jakarta.persistence.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "limits")
@@ -24,6 +25,8 @@ public class Limit extends AbstractEntity {
     private ExpenseCategory expenseCategory;
     @Column(name = "limit_currency_shortname")
     private String limitCurrencyShortname;
+    @OneToMany(mappedBy = "limit", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE})
+    private List<Transaction> transactionList;
 
     public Limit() {
         setLimitCurrencyShortname("USD");
@@ -103,5 +106,13 @@ public class Limit extends AbstractEntity {
 
     public void setLimitCurrencyShortname(String limitCurrencyShortname) {
         this.limitCurrencyShortname = limitCurrencyShortname;
+    }
+
+    public List<Transaction> getTransactionList() {
+        return transactionList;
+    }
+
+    public void setTransactionList(List<Transaction> transactionList) {
+        this.transactionList = transactionList;
     }
 }
