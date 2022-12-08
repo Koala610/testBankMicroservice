@@ -23,12 +23,15 @@ public class Transaction extends AbstractEntity {
     @Column(name = "expense_category")
     @Enumerated(EnumType.STRING)
     private ExpenseCategory expenseCategory;
+    @Column(name = "currency_shortname")
+    private String currencyShortName;
     private boolean limitExceeded;
 
     public Transaction() {
-
+        setCurrencyShortName("KZT");
     }
     public Transaction(Long accountFrom, Long accountTo) {
+        this();
         setAccountFrom(accountFrom);
         setAccountTo(accountTo);
     }
@@ -100,5 +103,13 @@ public class Transaction extends AbstractEntity {
 
     public void setExpenseCategory(ExpenseCategory expenseCategory) {
         this.expenseCategory = expenseCategory;
+    }
+
+    public String getCurrencyShortName() {
+        return currencyShortName;
+    }
+
+    public void setCurrencyShortName(String currencyShortName) {
+        this.currencyShortName = currencyShortName;
     }
 }
