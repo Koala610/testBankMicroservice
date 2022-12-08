@@ -27,10 +27,13 @@ public class TransactionControllerTest {
     @Test
     public void canAcceptObjectWithNullFields() {
         Transaction transaction = new Transaction();
+        transaction.setLimit(new Limit());
         Response response;
         response = transactionController.createTransaction(transaction);
         System.out.println(response.getStatus() + " " + response.getMessage() + " " + response.getBody());
         assertEquals(response.getStatus(), "error");
+        transactionRepository.delete(transaction);
+        limitRepository.delete(transaction.getLimit());
     }
     @Test
     public void canAcceptUsualObject() {

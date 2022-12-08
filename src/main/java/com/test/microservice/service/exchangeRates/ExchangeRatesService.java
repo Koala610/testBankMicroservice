@@ -28,6 +28,9 @@ public class ExchangeRatesService {
         ExchangeRatesResponse response = getExchangeRatesResponse();
         return response.values.get(0);
     }
+    public double getExchangeRateDouble() {
+        return getExchangeRateInformation().close.doubleValue();
+    }
 
     public boolean updateExchangeRates() {
         ExchangeRateInformation information = getExchangeRateInformation();
