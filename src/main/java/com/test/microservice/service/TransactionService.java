@@ -33,12 +33,11 @@ public class TransactionService {
     public Transaction getTransactionWithLimit(Transaction transaction) {
         Long account_from = transaction.getAccountFrom();
         ExpenseCategory category = transaction.getExpenseCategory();
-        Date currentDatetime = new Date(System.currentTimeMillis());
         double sum = transaction.getSum();
         Optional<Limit> preLimit = limitService.getLimit(account_from, category);
         double exchangeRate = exchangeRatesService.getExchangeRateDouble();
         if(preLimit.isEmpty()) {
-            Limit limit = new Limit(account_from, category, 0, currentDatetime);
+            Limit limit = new Limit(account_from, category, 0);
             limit.setRemainingSum(0, sum, exchangeRate);
             limit = limitService.createLimit(limit);
             transaction.setLimit(limit);

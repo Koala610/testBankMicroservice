@@ -1,5 +1,6 @@
 package com.test.microservice.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -7,6 +8,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "limits")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Limit extends AbstractEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
