@@ -1,5 +1,6 @@
 package com.test.microservice.exceptions;
 
+import com.test.microservice.entity.Response;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -7,10 +8,10 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ControllerExceptionHandler {
     @ExceptionHandler
-    public Error handlerHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
-        Error error = new Error();
-        error.setStatus("error");
-        error.setMessage(ex.getMessage());
-        return error;
+    public Response handlerHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
+        Response response = new Response();
+        response.setStatus("error");
+        response.setMessage(ex.getMessage());
+        return response;
     }
 }
