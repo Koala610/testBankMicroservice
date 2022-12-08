@@ -15,13 +15,12 @@ public class TransactionService {
     private TransactionRepository transactionRepository;
     @Autowired
     private LimitService limitService;
-    public boolean createTransaction(Transaction transaction) {
+    public void createTransaction(Transaction transaction) {
         Limit limit = limitService.getLimitForTransaction(transaction);
         if(limit.getRemainingSum() < 0) {
             transaction.setLimitExceeded(true);
         }
        transactionRepository.save(transaction);
-       return true;
     }
 
     public List<Transaction> getAllTransactions() {

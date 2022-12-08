@@ -26,8 +26,10 @@ public class Limit extends AbstractEntity {
     private String limitCurrencyShortname;
 
     public Limit() {
+        setLimitCurrencyShortname("USD");
     }
     public Limit( Long accountId) {
+        this();
         setAccountId(accountId);
     }
 
@@ -38,6 +40,11 @@ public class Limit extends AbstractEntity {
     public Limit(Long accountId, ExpenseCategory expenseCategory, double limitSum) {
         this(accountId, expenseCategory);
         setLimitSum(limitSum);
+    }
+
+    public Limit(Long accountId, ExpenseCategory expenseCategory, double limitSum, Date limitDatetime) {
+        this(accountId, expenseCategory, limitSum);
+        setLimitDatetime(limitDatetime);
     }
     public Long getId() {
         return id;
@@ -83,6 +90,9 @@ public class Limit extends AbstractEntity {
         return remainingSum;
     }
 
+    public void setRemainingSum(double convertedLimit, double transactionSum, double exchangeRate) {
+        this.remainingSum = convertedLimit - transactionSum / exchangeRate;
+    }
     public void setRemainingSum(double remainingSum) {
         this.remainingSum = remainingSum;
     }
