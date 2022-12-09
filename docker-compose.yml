@@ -1,0 +1,28 @@
+version: '3.3'
+services:
+  mysqldb:
+    container_name: mysqldb
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'bank_microservice'
+      MYSQL_USER: 'admin'
+      MYSQL_PASSWORD: 'admin'
+      MYSQL_ROOT_PASSWORD: 'admin'
+    ports:
+      - '3305:3306'
+  cassandradb:
+    container_name: cassandradb
+    build: ./cassandra
+    restart: always
+    ports:
+      - "9042:9042"
+  springapp:
+    container_name: springapp
+    restart: always
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - cassandradb
+      - mysqldb
