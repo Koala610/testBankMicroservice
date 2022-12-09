@@ -6,6 +6,7 @@ CREATE TABLE `limits` (
   `limit_datetime` datetime DEFAULT NULL,
   `expense_category` enum('product','service') NOT NULL,
   `limit_currency_shortname` varchar(3) DEFAULT NULL,
+  `is_actual` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `expense_category_id` (`expense_category`)
 );

@@ -33,19 +33,16 @@ public class TransactionService {
     public Transaction getTransactionWithLimit(Transaction transaction) {
         Long account_from = transaction.getAccountFrom();
         ExpenseCategory category = transaction.getExpenseCategory();
-        double sum = transaction.getSum();
         Optional<Limit> preLimit = limitService.getLimit(account_from, category);
-        double exchangeRate = exchangeRatesService.getExchangeRateDouble();
         if(preLimit.isEmpty()) {
             Limit limit = new Limit(account_from, category, 0);
-            limit.setRemainingSum(0, sum, exchangeRate);
+            limit.setRemainingSum(0 - transaction.getSum());
             limit = limitService.createLimit(limit);
             transaction.setLimit(limit);
             return transaction;
         }
         Limit limit = preLimit.get();
-        double convertedLimit =  exchangeRate * limit.getRemainingSum();
-        limit.setRemainingSum(convertedLimit ,sum, exchangeRate);
+        limit.setRemainingSum(limit.getRemainingSum() - transaction.getSum());
         transaction.setLimit(limit);
         return transaction;
     }
