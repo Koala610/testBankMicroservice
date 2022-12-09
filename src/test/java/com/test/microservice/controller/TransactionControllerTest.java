@@ -1,14 +1,11 @@
 package com.test.microservice.controller;
 
-import com.test.microservice.entity.ExpenseCategory;
-import com.test.microservice.entity.Limit;
-import com.test.microservice.entity.Response;
+import com.test.microservice.entity.*;
 import com.test.microservice.repository.LimitRepository;
 import com.test.microservice.repository.TransactionRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import com.test.microservice.entity.Transaction;
 
 import java.util.Date;
 import java.util.Optional;
@@ -26,25 +23,17 @@ public class TransactionControllerTest {
     private LimitRepository limitRepository;
     @Test
     public void canAcceptObjectWithNullFields() {
-        Transaction transaction = new Transaction();
-        transaction.setLimit(new Limit());
+
+        TransactionRequest transactionRequest = new TransactionRequest();
         Response response;
-        response = transactionController.createTransaction(transaction);
+        response = transactionController.createTransaction(transactionRequest);
         System.out.println(response.getStatus() + " " + response.getMessages() + " " + response.getBody());
         assertEquals(response.getStatus(), "error");
-        transactionRepository.delete(transaction);
-        limitRepository.delete(transaction.getLimit());
     }
     @Test
     public void canAcceptUsualObject() {
-        Transaction transaction = new Transaction(99999L, 88888L, ExpenseCategory.product, new Date(System.currentTimeMillis()), 33.33);
-        Response response = transactionController.createTransaction(transaction);
-        transaction = (Transaction) response.getBody();
+        TransactionRequest transactionRequest = new TransactionRequest(1111L, 2222L, ExpenseCategory.product);
+        Response response = transactionController.createTransaction(transactionRequest);
         assertEquals(response.getStatus(), "OK");
-        assertEquals(transaction.getCurrencyShortName(), "KZT");
-        Optional<Limit> limit = limitRepository.findByAccountIdAndExpenseCategory(99999L, ExpenseCategory.product);
-        assertThat(limit).isNotNull();
-        limitRepository.delete(limit.get());
-        transactionRepository.delete(transaction);
     }
 }

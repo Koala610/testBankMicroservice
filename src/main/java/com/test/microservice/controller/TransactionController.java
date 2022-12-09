@@ -2,7 +2,9 @@ package com.test.microservice.controller;
 
 import com.test.microservice.entity.Response;
 import com.test.microservice.entity.Transaction;
+import com.test.microservice.entity.TransactionRequest;
 import com.test.microservice.service.TransactionService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.*;
@@ -15,15 +17,15 @@ import java.util.Optional;
 public class TransactionController {
     private TransactionService transactionService;
     @PostMapping("/")
-    public Response createTransaction(@RequestBody Transaction transaction) {
+    public Response createTransaction(@RequestBody @Valid TransactionRequest transactionRequest) {
         Optional<Transaction> finalTransaction = null;
         try {
-             finalTransaction = transactionService.createTransaction(transaction);
+             finalTransaction = transactionService.createTransactionFromRequest(transactionRequest);
         }catch (DataIntegrityViolationException ex) {
             return new Response("error", new String[]{ex.getMessage()});
         }
         if(finalTransaction.isPresent()) {
-            return new Response("OK", transaction);
+            return new Response("OK", transactionRequest);
         }
         return  new Response("error", new String[]{"Can not save transaction..."});
     }

@@ -1,13 +1,11 @@
 package com.test.microservice.service;
-
 import com.test.microservice.entity.ExpenseCategory;
 import com.test.microservice.entity.Limit;
 import com.test.microservice.entity.Transaction;
-import com.test.microservice.repository.LimitRepository;
+import com.test.microservice.entity.TransactionRequest;
 import com.test.microservice.repository.TransactionRepository;
 import com.test.microservice.service.exchangeRates.ExchangeRatesService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -29,6 +27,16 @@ public class TransactionService {
         }
        Transaction resultTransaction = transactionRepository.save(transaction);
        return Optional.of(resultTransaction);
+    }
+    public Optional<Transaction> createTransactionFromRequest(TransactionRequest request) {
+        Transaction transaction = new Transaction(
+                request.getAccountFrom(),
+                request.getAccountTo(),
+                request.getExpenseCategory(),
+                request.getDatetime(),
+                request.getSum()
+        );
+        return  createTransaction(transaction);
     }
     public Transaction getTransactionWithLimit(Transaction transaction) {
         Long account_from = transaction.getAccountFrom();

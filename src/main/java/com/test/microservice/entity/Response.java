@@ -19,8 +19,8 @@ public class Response {
         this(status);
         setBody(body);
     }
-    public Response(String status, String[] message, AbstractEntity body) {
-        this(status, message);
+    public Response(String status, String[] messages, AbstractEntity body) {
+        this(status, messages);
         setBody(body);
     }
     public Response() {
@@ -50,5 +50,6 @@ public class Response {
 
     public void setMessages(String[] messages) {
         this.messages = messages;
+
     }
 }
