@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 public class Response {
     private String status;
     private String[] messages;
-    private AbstractEntity body;
+    private AbstractEntity[] body;
     public Response(String status) {
        setStatus(status);
     }
@@ -15,13 +15,21 @@ public class Response {
         this(status);
         setMessages(messages);
     }
-    public Response(String status, AbstractEntity body) {
+    public Response(String status, AbstractEntity[] body) {
         this(status);
         setBody(body);
     }
-    public Response(String status, String[] messages, AbstractEntity body) {
+    public Response(String status, String[] messages, AbstractEntity[] body) {
         this(status, messages);
         setBody(body);
+    }
+    public Response(String status, AbstractEntity body) {
+        this(status);
+        setBody(new AbstractEntity[]{body});
+    }
+    public Response(String status, String[] messages, AbstractEntity body) {
+        this(status, messages);
+        setBody(new AbstractEntity[]{body});
     }
     public Response() {
 
@@ -36,11 +44,11 @@ public class Response {
         this.status = status;
     }
 
-    public AbstractEntity getBody() {
+    public AbstractEntity[] getBody() {
         return body;
     }
 
-    public void setBody(AbstractEntity body) {
+    public void setBody(AbstractEntity[] body) {
         this.body = body;
     }
 

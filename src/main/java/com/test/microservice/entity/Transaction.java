@@ -26,7 +26,7 @@ public class Transaction extends AbstractEntity {
     @Column(name = "currency_shortname")
     private String currencyShortName;
     private boolean limitExceeded;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "limit_id")
     private Limit limit;
 

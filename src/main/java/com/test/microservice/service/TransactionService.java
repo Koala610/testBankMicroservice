@@ -28,14 +28,7 @@ public class TransactionService {
        return Optional.of(resultTransaction);
     }
     public Optional<Transaction> createTransactionFromRequest(TransactionRequest request) {
-        Transaction transaction = new Transaction(
-                request.getAccountFrom(),
-                request.getAccountTo(),
-                request.getExpenseCategory(),
-                request.getDatetime(),
-                request.getSum()
-        );
-        return  createTransaction(transaction);
+        return  createTransaction(request.toTransaction());
     }
     public Transaction getTransactionWithLimit(Transaction transaction) {
         Long account_from = transaction.getAccountFrom();
@@ -59,5 +52,9 @@ public class TransactionService {
 
     public List<Transaction> getAllTransactions() {
         return (List<Transaction>) transactionRepository.findAll();
+    }
+
+    public List<Transaction> getLimitExceededTransactions(Long accountId) {
+        return transactionRepository.findByAccountIdAndLimitExceeded(accountId, true);
     }
 }
