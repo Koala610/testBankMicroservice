@@ -1,6 +1,7 @@
 package com.test.microservice.entity;
 
 import jakarta.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -11,34 +12,42 @@ public class Transaction extends AbstractEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long account_from;
-    private Long account_to;
+    @Column(name = "account_from")
+    private Long accountFrom;
+    @Column(name = "account_to")
+    private Long accountTo;
     private double sum;
     @Column(name = "datetime")
-    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "dd/MM/yy hh:mm:ss")
     private Date datetime;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "expense_category_id")
+    @Column(name = "expense_category")
+    @Enumerated(EnumType.STRING)
     private ExpenseCategory expenseCategory;
+    @Column(name = "currency_shortname")
+    private String currencyShortName;
     private boolean limitExceeded;
+    @ManyToOne()
+    @JoinColumn(name = "limit_id")
+    private Limit limit;
 
     public Transaction() {
-
+        setCurrencyShortName("KZT");
     }
-    public Transaction(Long account_from, Long account_to) {
-        setAccount_from(account_from);
-        setAccount_to(account_to);
+    public Transaction(Long accountFrom, Long accountTo) {
+        this();
+        setAccountFrom(accountFrom);
+        setAccountTo(accountTo);
     }
-    public Transaction(Long account_from, Long account_to, ExpenseCategory expenseCategory) {
-        this(account_from, account_to);
+    public Transaction(Long accountFrom, Long accountTo, ExpenseCategory expenseCategory) {
+        this(accountFrom, accountTo);
         setExpenseCategory(expenseCategory);
     }
-    public Transaction(Long account_from, Long account_to, ExpenseCategory expenseCategory, Date datetime) {
-        this(account_from, account_to, expenseCategory);
+    public Transaction(Long accountFrom, Long accountTo, ExpenseCategory expenseCategory, Date datetime) {
+        this(accountFrom, accountTo, expenseCategory);
         setDatetime(datetime);
     }
-    public Transaction(Long account_from, Long account_to, ExpenseCategory expenseCategory, Date datetime, double sum) {
-        this(account_from, account_to, expenseCategory, datetime);
+    public Transaction(Long accountFrom, Long accountTo, ExpenseCategory expenseCategory, Date datetime, double sum) {
+        this(accountFrom, accountTo, expenseCategory, datetime);
         setSum(sum);
     }
 
@@ -67,20 +76,20 @@ public class Transaction extends AbstractEntity {
         this.sum = sum;
     }
 
-    public Long getAccount_to() {
-        return account_to;
+    public Long getAccountTo() {
+        return accountTo;
     }
 
-    public void setAccount_to(Long account_to) {
-        this.account_to = account_to;
+    public void setAccountTo(Long accountTo) {
+        this.accountTo = accountTo;
     }
 
-    public Long getAccount_from() {
-        return account_from;
+    public Long getAccountFrom() {
+        return accountFrom;
     }
 
-    public void setAccount_from(Long account_from) {
-        this.account_from = account_from;
+    public void setAccountFrom(Long accountFrom) {
+        this.accountFrom = accountFrom;
     }
 
     public Long getId() {
@@ -97,5 +106,21 @@ public class Transaction extends AbstractEntity {
 
     public void setExpenseCategory(ExpenseCategory expenseCategory) {
         this.expenseCategory = expenseCategory;
+    }
+
+    public String getCurrencyShortName() {
+        return currencyShortName;
+    }
+
+    public void setCurrencyShortName(String currencyShortName) {
+        this.currencyShortName = currencyShortName;
+    }
+
+    public Limit getLimit() {
+        return limit;
+    }
+
+    public void setLimit(Limit limit) {
+        this.limit = limit;
     }
 }

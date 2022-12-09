@@ -15,6 +15,7 @@ public class ExchangeRatesServiceTest {
     @Test
     public void testObtainingInformation() {
        ExchangeRateInformation information = service.getExchangeRateInformation();
+       System.out.println(information.close);
        assertThat(information).isNotNull();
     }
 }

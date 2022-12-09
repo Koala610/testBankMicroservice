@@ -45,7 +45,7 @@ public abstract class CrudRepositoryTest {
         AbstractEntity entity = createTestEntity();
         AbstractEntity updatedEntity = updateTestEntity(entity);
         Optional<AbstractEntity>checkEntity = mainRepository.findById(updatedEntity.getId());
-        assertThat(updatedEntity).isNotNull();
+        assertThat(checkEntity).isNotNull();
         deleteTestEntity(entity);
     }
     @Test
