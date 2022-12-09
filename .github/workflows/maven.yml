@@ -21,6 +21,7 @@ jobs:
     - name: Setup Cassandra Action
       uses: fabasoad/setup-cassandra-action@v1.0.2
       with:
+        host: '127.0.0.1'
         keyspace: bank_microservice
         scripts_path: ./src/main/resources/db/cassandra
     - name: Setup MySQL
