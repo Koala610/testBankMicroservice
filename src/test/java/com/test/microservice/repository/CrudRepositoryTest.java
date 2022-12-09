@@ -2,7 +2,7 @@ package com.test.microservice.repository;
 
 import com.test.microservice.entity.AbstractEntity;
 import com.test.microservice.entity.ExpenseCategory;
-import jakarta.persistence.MappedSuperclass;
+import javax.persistence.MappedSuperclass;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

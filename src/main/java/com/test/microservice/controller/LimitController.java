@@ -8,7 +8,7 @@ import com.test.microservice.entity.Response;
 import com.test.microservice.entity.request.TransactionRequest;
 import com.test.microservice.service.LimitService;
 import com.test.microservice.service.TransactionService;
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

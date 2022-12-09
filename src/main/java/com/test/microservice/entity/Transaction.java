@@ -1,6 +1,6 @@
 package com.test.microservice.entity;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;

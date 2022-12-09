@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.test.microservice.entity.AbstractEntity;
 import com.test.microservice.entity.ExpenseCategory;
 import com.test.microservice.entity.Limit;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 import java.util.Date;
 
@@ -21,6 +21,9 @@ public class LimitRequest extends AbstractEntity {
     private ExpenseCategory expenseCategory;
     private Date limitDatetime;
     private String currencyShortname;
+    public LimitRequest() {
+
+    }
     public LimitRequest(Limit limit) {
         setLimitSum(limit.getLimitSum());
         setLimitDatetime(limit.getLimitDatetime());

@@ -1,0 +1,495 @@
+openapi: 3.0.3
+info:
+  title: Bank Microservice API
+  description: API for test bank microservice
+  version: 1.0.0
+servers:
+  - url: https://localhost:8080
+tags:
+  - name: transactions
+    description: interraction with transactions
+  - name: client
+    description: client operations with limit
+paths:
+  /transactions:
+    post:
+      tags:
+        - transactions
+      summary: Add new transaction to mycroservice
+      description: >-
+        Add new transaction to mycroservice. Marks it as limit_exceeded flag if
+        transaction's limit exceeded.
+      operationId: createTransaction
+      requestBody:
+        description: Create a new transaction
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                accountFrom:
+                  type: integer
+                  format: int64
+                  example: 1000000000
+                accountFo:
+                  type: integer
+                  format: int64
+                  example: 1000000001
+                sum:
+                  type: number
+                  format: double
+                  example: 12.34
+                expenseCategory:
+                  type: string
+                  example: product
+                datetime:
+                  type: string
+                  format: date-time
+          application/xml:
+            schema:
+              type: object
+              properties:
+                accountFrom:
+                  type: integer
+                  format: int64
+                  example: 1000000000
+                accountFo:
+                  type: integer
+                  format: int64
+                  example: 1000000001
+                sum:
+                  type: number
+                  format: double
+                  example: 12.34
+                expenseCategory:
+                  type: string
+                  example: product
+                datetime:
+                  type: string
+                  format: date-time
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                accountFrom:
+                  type: integer
+                  format: int64
+                  example: 1000000000
+                accountFo:
+                  type: integer
+                  format: int64
+                  example: 1000000001
+                sum:
+                  type: number
+                  format: double
+                  example: 12.34
+                expenseCategory:
+                  type: string
+                  example: product
+                datetime:
+                  type: string
+                  format: date-time
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: OK
+                  body:
+                    type: object
+                    properties:
+                      accountFrom:
+                        type: integer
+                        format: int64
+                        example: 1000000000
+                      accountFo:
+                        type: integer
+                        format: int64
+                        example: 1000000001
+                      sum:
+                        type: number
+                        format: double
+                        example: 12.34
+                      expenseCategory:
+                        type: string
+                        example: product
+                      datetime:
+                        type: string
+                        format: date-time
+        '405':
+          description: Invalid input
+  /client/limits/:
+    post:
+      tags:
+        - client
+      summary: Create/Update limit
+      description: Creating or updating limit and saving it in database
+      operationId: changeLimit
+      requestBody:
+        description: Limit
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                accountId:
+                  type: integer
+                  format: int64
+                  example: 1000000000
+                limitSum:
+                  type: number
+                  format: double
+                  example: 12.34
+                limitDatetime:
+                  type: string
+                  format: date-time
+                expenseCategory:
+                  type: string
+                  example: product
+          application/xml:
+            schema:
+              type: object
+              properties:
+                accountId:
+                  type: integer
+                  format: int64
+                  example: 1000000000
+                limitSum:
+                  type: number
+                  format: double
+                  example: 12.34
+                limitDatetime:
+                  type: string
+                  format: date-time
+                expenseCategory:
+                  type: string
+                  example: product
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                accountId:
+                  type: integer
+                  format: int64
+                  example: 1000000000
+                limitSum:
+                  type: number
+                  format: double
+                  example: 12.34
+                limitDatetime:
+                  type: string
+                  format: date-time
+                expenseCategory:
+                  type: string
+                  example: product
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: OK
+                  body:
+                    type: object
+                    properties:
+                      accountFrom:
+                        type: integer
+                        format: int64
+                        example: 1000000000
+                      accountFo:
+                        type: integer
+                        format: int64
+                        example: 1000000001
+                      sum:
+                        type: number
+                        format: double
+                        example: 12.34
+                      expenseCategory:
+                        type: string
+                        example: product
+                      datetime:
+                        type: string
+                        format: date-time
+        '405':
+          description: Invalid input
+    get:
+      tags:
+        - client
+      summary: Get transactions with limit exceeded
+      description: Returning list of transactions with limit that was exceeded
+      operationId: getLimitExceededTransactions
+      parameters:
+        - name: accountId
+          in: path
+          description: Id of an account
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: OK
+                  body:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        accountFrom:
+                          type: integer
+                          format: int64
+                          example: 1000000000
+                        accountTo:
+                          type: integer
+                          format: int64
+                          example: 1000000001
+                        currencyShortname:
+                          type: string
+                          example: KZT
+                        sum:
+                          type: number
+                          format: double
+                          example: 12.34
+                        expenseCategory:
+                          type: string
+                          example: product
+                        datetime:
+                          type: string
+                          format: date-time
+                        limit:
+                          type: object
+                          properties:
+                            limitSum:
+                              type: number
+                              format: double
+                              example: 12.34
+                            limitDatetime:
+                              type: string
+                              format: date-time
+                            limitCurrencyShortname:
+                              type: string
+                              example: KZT
+                xml:
+                  name: '##default'
+        '405':
+          description: Invalid input
+components:
+  schemas:
+    Transaction:
+      type: object
+      properties:
+        accountFrom:
+          type: integer
+          format: int64
+          example: 1000000000
+        accountFo:
+          type: integer
+          format: int64
+          example: 1000000001
+        sum:
+          type: number
+          format: double
+          example: 12.34
+        expenseCategory:
+          type: string
+          example: product
+        datetime:
+          type: string
+          format: date-time
+    Limit:
+      type: object
+      properties:
+        accountId:
+          type: integer
+          format: int64
+          example: 1000000000
+        limitSum:
+          type: number
+          format: double
+          example: 12.34
+        limitDatetime:
+          type: string
+          format: date-time
+        expenseCategory:
+          type: string
+          example: product
+    TransactionWithLimit:
+      type: object
+      properties:
+        accountFrom:
+          type: integer
+          format: int64
+          example: 1000000000
+        accountTo:
+          type: integer
+          format: int64
+          example: 1000000001
+        currencyShortname:
+          type: string
+          example: KZT
+        sum:
+          type: number
+          format: double
+          example: 12.34
+        expenseCategory:
+          type: string
+          example: product
+        datetime:
+          type: string
+          format: date-time
+        limit:
+          type: object
+          properties:
+            limitSum:
+              type: number
+              format: double
+              example: 12.34
+            limitDatetime:
+              type: string
+              format: date-time
+            limitCurrencyShortname:
+              type: string
+              example: KZT
+    TransactionResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: OK
+        body:
+          type: object
+          properties:
+            accountFrom:
+              type: integer
+              format: int64
+              example: 1000000000
+            accountFo:
+              type: integer
+              format: int64
+              example: 1000000001
+            sum:
+              type: number
+              format: double
+              example: 12.34
+            expenseCategory:
+              type: string
+              example: product
+            datetime:
+              type: string
+              format: date-time
+    LimitResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: OK
+        body:
+          type: array
+          items:
+            type: object
+            properties:
+              accountFrom:
+                type: integer
+                format: int64
+                example: 1000000000
+              accountTo:
+                type: integer
+                format: int64
+                example: 1000000001
+              currencyShortname:
+                type: string
+                example: KZT
+              sum:
+                type: number
+                format: double
+                example: 12.34
+              expenseCategory:
+                type: string
+                example: product
+              datetime:
+                type: string
+                format: date-time
+              limit:
+                type: object
+                properties:
+                  limitSum:
+                    type: number
+                    format: double
+                    example: 12.34
+                  limitDatetime:
+                    type: string
+                    format: date-time
+                  limitCurrencyShortname:
+                    type: string
+                    example: KZT
+      xml:
+        name: '##default'
+  requestBodies:
+    Transaction:
+      description: Transaction
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              accountFrom:
+                type: integer
+                format: int64
+                example: 1000000000
+              accountFo:
+                type: integer
+                format: int64
+                example: 1000000001
+              sum:
+                type: number
+                format: double
+                example: 12.34
+              expenseCategory:
+                type: string
+                example: product
+              datetime:
+                type: string
+                format: date-time
+    Limit:
+      description: Limit
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              accountId:
+                type: integer
+                format: int64
+                example: 1000000000
+              limitSum:
+                type: number
+                format: double
+                example: 12.34
+              limitDatetime:
+                type: string
+                format: date-time
+              expenseCategory:
+                type: string
+                example: product
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: api_key
+      in: header
