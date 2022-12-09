@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.test.microservice.entity.AbstractEntity;
 import com.test.microservice.entity.ExpenseCategory;
 import com.test.microservice.entity.Transaction;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 import java.util.Date;
 
