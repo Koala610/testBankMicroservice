@@ -2,7 +2,7 @@ package com.test.microservice.controller;
 
 import com.test.microservice.entity.Response;
 import com.test.microservice.entity.Transaction;
-import com.test.microservice.entity.TransactionRequest;
+import com.test.microservice.entity.request.TransactionRequest;
 import com.test.microservice.service.TransactionService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

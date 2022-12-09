@@ -1,13 +1,15 @@
-package com.test.microservice.entity;
+package com.test.microservice.entity.request;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.test.microservice.entity.AbstractEntity;
+import com.test.microservice.entity.ExpenseCategory;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.Date;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class TransactionRequest extends AbstractEntity{
+public class TransactionRequest extends AbstractEntity {
     @NotNull
     private Long accountFrom;
     @NotNull

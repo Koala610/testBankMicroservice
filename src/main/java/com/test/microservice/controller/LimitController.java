@@ -1,7 +1,7 @@
 package com.test.microservice.controller;
 
 import com.test.microservice.entity.Limit;
-import com.test.microservice.entity.LimitRequest;
+import com.test.microservice.entity.request.LimitRequest;
 import com.test.microservice.entity.Response;
 import com.test.microservice.service.LimitService;
 import jakarta.validation.Valid;

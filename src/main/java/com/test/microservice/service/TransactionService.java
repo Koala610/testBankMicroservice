@@ -2,13 +2,12 @@ package com.test.microservice.service;
 import com.test.microservice.entity.ExpenseCategory;
 import com.test.microservice.entity.Limit;
 import com.test.microservice.entity.Transaction;
-import com.test.microservice.entity.TransactionRequest;
+import com.test.microservice.entity.request.TransactionRequest;
 import com.test.microservice.repository.TransactionRepository;
 import com.test.microservice.service.exchangeRates.ExchangeRatesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
