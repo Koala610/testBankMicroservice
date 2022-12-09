@@ -20,11 +20,20 @@ public class LimitService {
     private ExchangeRatesService exchangeRatesService;
     @Autowired
     private TransactionRepository transactionRepository;
+    public void changeLimitsActuality(Iterable<Limit> limits) {
+        for(Limit l : limits){
+            l.setActual(false);
+        }
+    }
 
 
 
     public Limit createLimit(Limit limit) {
+        List<Limit> actualLimits = limitRepository.findByAccountIdAnActuality(limit.getAccountId(), true);
+        changeLimitsActuality(actualLimits);
+        limitRepository.saveAll(actualLimits);
         limit.setLimitDatetime(new Date(System.currentTimeMillis()));
+        limit.setActual(true);
         return limitRepository.save(limit);
     }
 
@@ -35,7 +44,7 @@ public class LimitService {
         return limitRepository.findByAccountId(account_id);
     }
     public Optional<Limit> getLimit(Long account_id, ExpenseCategory expenseCategory) {
-        return limitRepository.findByAccountIdAndExpenseCategory(account_id, expenseCategory);
+        return limitRepository.findByAccountIdAndExpenseCategoryAndActuality(account_id, expenseCategory, true);
     }
 
 }

@@ -27,11 +27,14 @@ public class Limit extends AbstractEntity {
     private ExpenseCategory expenseCategory;
     @Column(name = "limit_currency_shortname")
     private String limitCurrencyShortname;
+    @Column(name = "is_actual")
+    private boolean isActual;
     @OneToMany(mappedBy = "limit", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE})
     private List<Transaction> transactionList;
 
     public Limit() {
         setLimitCurrencyShortname("USD");
+        setActual(true);
     }
     public Limit( Long accountId) {
         this();
@@ -95,9 +98,6 @@ public class Limit extends AbstractEntity {
         return remainingSum;
     }
 
-    public void setRemainingSum(double convertedLimit, double transactionSum, double exchangeRate) {
-        this.remainingSum = convertedLimit - transactionSum / exchangeRate;
-    }
     public void setRemainingSum(double remainingSum) {
         this.remainingSum = remainingSum;
     }
@@ -116,5 +116,13 @@ public class Limit extends AbstractEntity {
 
     public void setTransactionList(List<Transaction> transactionList) {
         this.transactionList = transactionList;
+    }
+
+    public boolean isActual() {
+        return isActual;
+    }
+
+    public void setActual(boolean actual) {
+        isActual = actual;
     }
 }

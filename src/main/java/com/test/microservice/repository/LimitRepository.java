@@ -13,6 +13,10 @@ public interface LimitRepository extends CrudRepository<Limit, Long> {
     List<Limit> findByLimitSum(double limitSum);
     @Query("select l from Limit l where l.accountId = ?1")
     List<Limit> findByAccountId(Long accountId);
-    @Query("select l from Limit l where l.accountId = ?1 and l.expenseCategory = ?2")
-    Optional<Limit> findByAccountIdAndExpenseCategory(Long accountId, ExpenseCategory expenseCategory);
+    @Query("select l from Limit l where l.accountId = ?1 and l.expenseCategory = ?2 and l.isActual= ?3")
+    Optional<Limit> findByAccountIdAndExpenseCategoryAndActuality(Long accountId, ExpenseCategory expenseCategory, boolean isActual);
+    @Query("select l from Limit l where l.accountId = ?1 and l.isActual = ?2")
+    List<Limit> findByAccountIdAnActuality(Long accountId, boolean isActual);
+    @Query("select l from Limit l where  l.isActual = ?2")
+    List<Limit> findByActuality(boolean isActual);
 }

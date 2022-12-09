@@ -38,14 +38,13 @@ public class TransactionService {
         double exchangeRate = exchangeRatesService.getExchangeRateDouble();
         if(preLimit.isEmpty()) {
             Limit limit = new Limit(account_from, category, 0);
-            limit.setRemainingSum(0, sum, exchangeRate);
+            limit.setRemainingSum(0 - sum);
             limit = limitService.createLimit(limit);
             transaction.setLimit(limit);
             return transaction;
         }
         Limit limit = preLimit.get();
-        double convertedLimit =  exchangeRate * limit.getRemainingSum();
-        limit.setRemainingSum(convertedLimit ,sum, exchangeRate);
+        limit.setRemainingSum(limit.getRemainingSum() - sum);
         transaction.setLimit(limit);
         return transaction;
     }

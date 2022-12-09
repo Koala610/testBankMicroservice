@@ -38,9 +38,9 @@ public class LimitRepositoryTest extends  CrudRepositoryTest{
     public void testGettingByaccountIdAndCategory() {
        Limit limit = (Limit) createTestEntity();
        mainRepository.save(limit);
-       Optional<Limit> finalLimit = ((LimitRepository) mainRepository).findByAccountIdAndExpenseCategory(
+       Optional<Limit> finalLimit = ((LimitRepository) mainRepository).findByAccountIdAndExpenseCategoryAndActuality(
                limit.getAccountId(),
-               limit.getExpenseCategory());
+               limit.getExpenseCategory(), true);
        assertThat(finalLimit).isNotNull();
        deleteTestEntity(limit);
     }
