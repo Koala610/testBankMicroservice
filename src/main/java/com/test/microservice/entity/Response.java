@@ -1,26 +1,25 @@
 package com.test.microservice.entity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Response {
     private String status;
-    private String message;
+    private String[] messages;
     private AbstractEntity body;
     public Response(String status) {
        setStatus(status);
     }
 
-    public Response(String status, String message) {
+    public Response(String status, String[] messages) {
         this(status);
-        setMessage(message);
+        setMessages(messages);
     }
     public Response(String status, AbstractEntity body) {
         this(status);
         setBody(body);
     }
-    public Response(String status, String message, AbstractEntity body) {
+    public Response(String status, String[] message, AbstractEntity body) {
         this(status, message);
         setBody(body);
     }
@@ -45,11 +44,11 @@ public class Response {
         this.body = body;
     }
 
-    public String getMessage() {
-        return message;
+    public String[] getMessages() {
+        return messages;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setMessages(String[] messages) {
+        this.messages = messages;
     }
 }

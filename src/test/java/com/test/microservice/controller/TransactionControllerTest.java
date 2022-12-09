@@ -30,7 +30,7 @@ public class TransactionControllerTest {
         transaction.setLimit(new Limit());
         Response response;
         response = transactionController.createTransaction(transaction);
-        System.out.println(response.getStatus() + " " + response.getMessage() + " " + response.getBody());
+        System.out.println(response.getStatus() + " " + response.getMessages() + " " + response.getBody());
         assertEquals(response.getStatus(), "error");
         transactionRepository.delete(transaction);
         limitRepository.delete(transaction.getLimit());

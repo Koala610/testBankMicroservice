@@ -5,6 +5,7 @@ import com.test.microservice.entity.LimitRequest;
 import com.test.microservice.entity.Response;
 import com.test.microservice.repository.LimitRepository;
 import com.test.microservice.service.LimitService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,13 +18,7 @@ public class LimitController {
     @Autowired
     private LimitService limitService;
     @PostMapping("/")
-    public Response getLimits(@RequestBody LimitRequest limitRequest) {
-        if(limitRequest.getAccountId() == null) {
-           return new Response("error", "accountId is required field");
-        }
-        if(limitRequest.getLimitSum() <= 0) {
-            return new Response("error", "limitSum should be positive");
-        }
+    public Response addLimit(@RequestBody @Valid LimitRequest limitRequest) {
         Optional<Limit> preLimit = limitService.getLimit(limitRequest.getAccountId(), limitRequest.getExpenseCategory());
         Limit newLimit;
         newLimit = new Limit(limitRequest.getAccountId(), limitRequest.getExpenseCategory(), limitRequest.getLimitSum());

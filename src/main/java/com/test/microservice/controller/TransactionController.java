@@ -20,12 +20,12 @@ public class TransactionController {
         try {
              finalTransaction = transactionService.createTransaction(transaction);
         }catch (DataIntegrityViolationException ex) {
-            return new Response("error", ex.getMessage());
+            return new Response("error", new String[]{ex.getMessage()});
         }
         if(finalTransaction.isPresent()) {
             return new Response("OK", transaction);
         }
-        return  new Response("error", "Can not save transaction...");
+        return  new Response("error", new String[]{"Can not save transaction..."});
     }
 
     @GetMapping("")
