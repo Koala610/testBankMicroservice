@@ -8,4 +8,6 @@
 
 ### Запуск
 1. Запустить контейнеры: _docker-compose up_
-2. Начать эксплуатацию
+2. Получить API ключ на сайте https://twelvedata.com
+3. Ввести полученный ключ в файл _src/main/resources/exchangeRateService.properties_
+3. Начать эксплуатацию
