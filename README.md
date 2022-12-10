@@ -11,3 +11,7 @@
 2. Получить API ключ на сайте https://twelvedata.com
 3. Ввести полученный ключ в файл _src/main/resources/exchangeRateService.properties_
 3. Начать эксплуатацию
+
+### Примечание
+#### Если вы клонируете репозиторий на Windows, отключите замену перевода строк в git
+#### Команда: git config --global core.autocrlf false
